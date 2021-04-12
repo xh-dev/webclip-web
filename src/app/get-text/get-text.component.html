@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-12">
+        <input type='number' [ngModel]="id | async" (ngModelChange)="id.next($event)"/>
+        <button (appPaste)="paste($event)">Paste</button>
+        <button [appCp]="id.getValue()">Copy</button>
+      </div>
+      <div class="col-12">
+        <label id="msg">Message</label>
+      </div>
+      <div class="col-12">
+        <textarea aria-label="msg" rows="5" cols="40" *ngIf="value" disabled>{{value}}</textarea>
+        <button *ngIf="value" [appCp]="value">copy</button>
+      </div>
+
+      <div class="col-12">
+        <button (click)="submit()">Retrieve</button>
+      </div>
+    </div>
+  </div>
+</div>
+

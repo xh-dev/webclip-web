@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "webclip2"
+    }
+  },
+  "defaultProject": "webclip2",
+  "cli": {
+    "analytics": false
+  }
 }

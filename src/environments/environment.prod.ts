@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  host: 'https://webclip2.mytools.express/api'
 };

@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-12">
+        <label id="id">Message Content</label>
+      </div>
+      <div class="col-12">
+        <textarea aria-label="id" rows="5" cols="40" [(ngModel)]="value"></textarea>
+      </div>
+
+      <div class="col-12">
+        <label *ngIf="id" [appCp]="id">{{id}}</label>
+      </div>
+      <div class="col-12">
+        <button (click)="submit()">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
