@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { CpDirective } from './cp.directive';
 import { PasteDirective } from './paste.directive';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { PasswordFilterPipe } from './password-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
     PostTextComponent,
     GetTextComponent,
     CpDirective,
-    PasteDirective
+    PasteDirective,
+    PasswordFilterPipe
   ],
   imports: [
     BrowserModule,

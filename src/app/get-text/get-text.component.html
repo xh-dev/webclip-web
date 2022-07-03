@@ -11,8 +11,16 @@
         <label id="msg">Message</label>
       </div>
       <div class="col-12">
-        <textarea aria-label="msg" rows="5" cols="40" *ngIf="value" disabled>{{value}}</textarea>
-        <button *ngIf="value" [appCp]="value">copy</button>
+        <div class="col-9">
+          <textarea aria-label="msg" rows="5" cols="40" *ngIf="value" disabled >{{value|passwordFilter: show}}</textarea>
+        </div>
+        <div class="col-3" *ngIf="value">
+          <button [appCp]="value" (copied)="this.copied($event)">copy</button>
+
+          <button *ngIf="show" (click)="toggleVisible()">Show</button>
+          <button *ngIf="!show" (click)="toggleVisible()">Hide</button>
+          {{cbMsg}}
+        </div>
       </div>
 
       <div class="col-12">

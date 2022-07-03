@@ -21,10 +21,6 @@ export interface RetrieveResp {
 })
 export class GetTextComponent implements OnInit {
 
-  value = '';
-
-  id: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -38,11 +34,21 @@ export class GetTextComponent implements OnInit {
     });
 
     this.id.subscribe(text => {
-      if (text === null) { return; }
+      if (text === null) {
+        return;
+      }
       const url = this.router.createUrlTree([], {relativeTo: this.route, queryParams: {id: text}}).toString();
       this.location.replaceState(url);
     });
   }
+
+  value = '';
+  show = true;
+
+  id: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+
+  cbMsg = '';
+  cbMsgId = -1;
 
   ngOnInit(): void {
   }
@@ -59,8 +65,21 @@ export class GetTextComponent implements OnInit {
       );
   }
 
-  paste(str: string){
+  paste(str: string) {
     this.id.next(str);
+  }
+
+  toggleVisible() {
+    this.show = !this.show;
+  }
+
+  copied($event) {
+    if (this.cbMsgId !== -1) {
+      clearTimeout(this.cbMsgId);
+    }
+    console.log(`Copied: ${$event}`);
+    this.cbMsg = 'Copied';
+    this.cbMsgId = setTimeout(() => this.cbMsg = '', 1000);
   }
 
 }

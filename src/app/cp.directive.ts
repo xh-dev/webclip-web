@@ -1,4 +1,4 @@
-import {Directive, HostListener, Input} from '@angular/core';
+import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
 
 @Directive({
   selector: '[appCp]'
@@ -8,6 +8,7 @@ export class CpDirective {
   constructor() { }
 
   @Input() appCp = '';
+  @Output() copied: EventEmitter<string> = new EventEmitter<string>();
 
   @HostListener('click')
   onClick(){
@@ -23,6 +24,6 @@ export class CpDirective {
       document.body.removeChild(el);
     };
     copyToClipboardFunc(this.appCp);
-    alert('Copied text: ' + this.appCp);
+    this.copied.emit(this.appCp);
   }
 }
