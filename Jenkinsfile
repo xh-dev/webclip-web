@@ -47,13 +47,14 @@ pipeline {
             when { expression { return env.GIT_BRANCH == 'origin/master'}}
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/webclip2-server:latest'
-                sh 'docker tag $DOCKERHUB_CREDENTIALS_USR/webclip2-server:latest xethhung/webclip2-server:'+project_version
-                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/webclip2-server:'+project_version
+                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/webclip-web:latest'
+                sh 'docker tag $DOCKERHUB_CREDENTIALS_USR/webclip-web:latest xethhung/webclip2-server:'+project_version
+                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/webclip-web:'+project_version
             }
         }
         stage('Deploy') {
-            when { expression { return env.GIT_BRANCH == 'origin/master'}}
+//             when { expression { return env.GIT_BRANCH == 'origin/master'}}
+            when {expression { return false }}
             steps {
                 withCredentials([string(credentialsId: 'deployment-host', variable: 'host')]) {
                     sshagent(credentials: ['ssh-deployment']){
