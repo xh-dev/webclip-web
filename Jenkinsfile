@@ -48,9 +48,11 @@ pipeline {
         stage('Publish') {
             when { expression { return env.GIT_BRANCH == 'origin/master'}}
             steps {
+                sh 'printenv'
+                project_version = sh(returnStdout: true, script: 'echo $C_VERSION')
                 sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 sh "docker push $DOCKERHUB_CREDENTIALS_USR/$app_name:latest"
-                sh "docker tag $DOCKERHUB_CREDENTIALS_USR/$app_name:latest xethhung/$app_name:$project_version"
+                sh "docker tag $DOCKERHUB_CREDENTIALS_USR/$app_name:latest $DOCKERHUB_CREDENTIALS_USR/$app_name:$project_version"
                 sh "docker push $DOCKERHUB_CREDENTIALS_USR/$app_name:$project_version"
             }
         }
