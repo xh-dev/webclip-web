@@ -1,7 +1,8 @@
+def app_name="webclip-web"
+
 def project_version
 def project_branchName
 
-def app_name="webclip-web"
 def setStatus(status, app_name){
     def m = '{"state": "'+status+'","context": "continuous-integration/jenkins", "description": "Jenkins", "target_url": "https://jks.xh-network.xyz/job/'+app_name+'/'+env.BUILD_NUMBER+'/console"}'
     m = m.replaceAll("\"", "\\\\\"")
@@ -47,18 +48,11 @@ pipeline {
         }
         stage('Publish') {
             when { expression { return env.GIT_BRANCH == 'origin/master'}}
-            environment {
-                C_VERSION = sh(returnStdout: true, script: 'cat build.sbt | grep -E "^.*version.*$" | sed -e "s/.*\"version\"[ ]*:[ ]*\"\\(.*\\)\"[ ]*,.*$/\1/g"').trim()
-                branchName= sh (returnStdout: true, script: 'echo $GIT_BRANCH').trim()
-                commitId= sh (returnStdout: true, script: 'echo $GIT_COMMIT').trim()
-            }
             steps {
                 sh 'printenv'
-                script {
-                  project_version = sh(returnStdout: true, script: 'echo $C_VERSION')
-                }
                 sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
                 sh "docker push $DOCKERHUB_CREDENTIALS_USR/$app_name:latest"
+                echo "project_version: $project_version"
                 sh "docker tag $DOCKERHUB_CREDENTIALS_USR/$app_name:latest $DOCKERHUB_CREDENTIALS_USR/$app_name:$project_version"
                 sh "docker push $DOCKERHUB_CREDENTIALS_USR/$app_name:$project_version"
             }
