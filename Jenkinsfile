@@ -47,6 +47,11 @@ pipeline {
         }
         stage('Publish') {
             when { expression { return env.GIT_BRANCH == 'origin/master'}}
+            environment {
+                C_VERSION = sh(returnStdout: true, script: 'cat build.sbt | grep -E "^.*version.*$" | sed -e "s/.*\"version\"[ ]*:[ ]*\"\\(.*\\)\"[ ]*,.*$/\1/g"').trim()
+                branchName= sh (returnStdout: true, script: 'echo $GIT_BRANCH').trim()
+                commitId= sh (returnStdout: true, script: 'echo $GIT_COMMIT').trim()
+            }
             steps {
                 sh 'printenv'
                 script {
