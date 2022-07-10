@@ -31,6 +31,7 @@ pipeline {
                     sh 'printenv'
                     setStatus("pending", app_name)
                     project_version = sh(returnStdout: true, script: 'echo $C_VERSION')
+                    echo "project_version: $project_version"
                     project_branchName = env.branchName
                 }
             }
