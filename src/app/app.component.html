@@ -5,5 +5,15 @@
   <li class="nav-item">
     <a class="nav-link" routerLinkActive="active" routerLink="get">Retrieve</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" routerLinkActive="inactive">
+      FE: {{this.version}}
+    </a>
+  </li>
+  <li *ngIf="beVersion" class="nav-item">
+    <a class="nav-link" routerLinkActive="inactive">
+      BE: {{this.beVersion.version}}-{{this.beVersion.commit.slice(0,6)}}
+    </a>
+  </li>
 </ul>
 <router-outlet></router-outlet>

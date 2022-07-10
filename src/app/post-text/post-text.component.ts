@@ -42,8 +42,8 @@ export class PostTextComponent implements OnInit {
   }
 
   ctrlEnter(event: KeyboardEvent, item: string) {
-    if(item === ""){
-      return
+    if (item === '') {
+      return;
     }
     this.submit();
   }
