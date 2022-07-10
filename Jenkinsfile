@@ -41,17 +41,17 @@ pipeline {
             }
             when { expression { return env.GIT_BRANCH == 'origin/master'}}
             steps {
-                sh 'docker build --build-arg branchName=$GIT_BRANCH --build-arg commitId=$GIT_COMMIT -t xethhung/webclip2-server:latest .'
+                sh "docker build -t xethhung/$app_name:latest ."
                 echo 'build complete'
             }
         }
         stage('Publish') {
             when { expression { return env.GIT_BRANCH == 'origin/master'}}
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/webclip-web:latest'
-                sh 'docker tag $DOCKERHUB_CREDENTIALS_USR/webclip-web:latest xethhung/webclip2-server:'+project_version
-                sh 'docker push $DOCKERHUB_CREDENTIALS_USR/webclip-web:'+project_version
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                sh "docker push $DOCKERHUB_CREDENTIALS_USR/$app_name:latest"
+                sh "docker tag $DOCKERHUB_CREDENTIALS_USR/$app_name:latest xethhung/webclip2-server:$project_version"
+                sh "docker push $DOCKERHUB_CREDENTIALS_USR/$app_name:$project_version"
             }
         }
         stage('Deploy') {
