@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
@@ -18,7 +18,8 @@ export interface CreateResp {
 })
 export class PostTextComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
   value = '';
 
@@ -38,5 +39,12 @@ export class PostTextComponent implements OnInit {
           alert(error.error.errorMsg);
         }
       );
+  }
+
+  ctrlEnter(event: KeyboardEvent, item: string) {
+    if(item === ""){
+      return
+    }
+    this.submit();
   }
 }

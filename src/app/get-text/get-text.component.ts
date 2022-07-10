@@ -82,4 +82,12 @@ export class GetTextComponent implements OnInit {
     this.cbMsgId = setTimeout(() => this.cbMsg = '', 1000);
   }
 
+  handleEnter($event:KeyboardEvent){
+    console.log("handleEnter")
+    if(this.id.value == ""){
+      return
+    }
+    this.submit()
+  }
+
 }

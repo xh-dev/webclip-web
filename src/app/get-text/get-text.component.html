@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-12">
-        <input type='number' [ngModel]="id | async" (ngModelChange)="id.next($event)"/>
+        <input type='number' [ngModel]="id | async" (keydown.enter)="handleEnter($event)" (ngModelChange)="id.next($event)"/>
         <button (appPaste)="paste($event)">Paste</button>
         <button [appCp]="id.getValue()">Copy</button>
       </div>

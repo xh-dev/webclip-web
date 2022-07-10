@@ -6,7 +6,7 @@
         <label id="id">Message Content</label>
       </div>
       <div class="col-12">
-        <textarea aria-label="id" rows="5" cols="40" [(ngModel)]="value"></textarea>
+        <textarea aria-label="id" rows="5" cols="40" [(ngModel)]="value" (keydown.control.enter)="ctrlEnter($event, value)"></textarea>
       </div>
 
       <div class="col-12">
