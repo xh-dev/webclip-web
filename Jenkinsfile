@@ -59,12 +59,11 @@ pipeline {
             }
         }
         stage('Deploy') {
-//             when { expression { return env.GIT_BRANCH == 'origin/master'}}
-            when {expression { return false }}
+            when { expression { return env.GIT_BRANCH == 'origin/master'}}
             steps {
                 withCredentials([string(credentialsId: 'deployment-host', variable: 'host')]) {
                     sshagent(credentials: ['ssh-deployment']){
-                        sh "ssh -i /ssh/id_rsa $DEPLOY_CREDENTIALS_USR@$host /data/webclip2-server/refresh.sh"
+                        sh "ssh -i /ssh/id_rsa $DEPLOY_CREDENTIALS_USR@$host /data/webclip-web/refresh.sh"
                     }
                 }
             }
