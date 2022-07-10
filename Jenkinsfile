@@ -48,8 +48,7 @@ pipeline {
             }
         }
         stage('Publish') {
-//             when { expression { return env.GIT_BRANCH == 'origin/master'}}
-            when {expression { return false }}
+            when { expression { return env.GIT_BRANCH == 'origin/master'}}
             steps {
                 sh 'printenv'
                 sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
