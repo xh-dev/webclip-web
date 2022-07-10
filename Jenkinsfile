@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage('Init') {
             environment {
-                C_VERSION = sh(returnStdout: true, script: 'cat package.json | grep -E "^.*version.*$" | sed -e "s/.*\"version\"[ ]*:[ ]*\"\\(.*\\)\"[ ]*,.*$/\\1/g"').trim()
+                C_VERSION = sh(returnStdout: true, script: 'cat package.json | grep -E "^.*version.*$" | sed -e "s/.*\\"version\\"[ ]*:[ ]*\\"\\(.*\\)\\"[ ]*,.*$/\\1/g"').trim()
                 branchName= sh (returnStdout: true, script: 'echo $GIT_BRANCH').trim()
                 commitId= sh (returnStdout: true, script: 'echo $GIT_COMMIT').trim()
             }
