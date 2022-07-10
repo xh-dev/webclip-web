@@ -2,7 +2,7 @@ def project_version
 def project_branchName
 
 def app_name="webclip-web"
-def setStatus(status){
+def setStatus(status, app_name){
     def m = '{"state": "'+status+'","context": "continuous-integration/jenkins", "description": "Jenkins", "target_url": "https://jks.xh-network.xyz/job/'+app_name+'/'+env.BUILD_NUMBER+'/console"}'
     m = m.replaceAll("\"", "\\\\\"")
     msg = "curl -i -s \"https://api.GitHub.com/repos/$GITHUB_CREDENTIALS_USR/$app_name/statuses/$GIT_COMMIT\" -H \"Authorization: token $GITHUB_CREDENTIALS_PSW\" -H \"Content-Type: application/json\" -X POST -d \"$m\""
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 script {
                     sh 'printenv'
-                    setStatus("pending")
+                    setStatus("pending", app_name)
                     project_version = sh(returnStdout: true, script: 'echo $C_VERSION')
                     project_branchName = env.branchName
                 }
@@ -71,10 +71,10 @@ pipeline {
             sh 'docker logout'
         }
         success {
-            setStatus("success")
+            setStatus("success", app_name)
         }
         failure {
-            setStatus("failure")
+            setStatus("failure", app_name)
         }
     }
 }
