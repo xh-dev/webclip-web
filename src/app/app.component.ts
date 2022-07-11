@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
   }
 
   feVersion = environment.version;
-  feBranch = environment.branchName;
+  feCommitId = environment.commitId;
   beVersion: BEVersionEntity = null;
 
   ngOnInit(): void {
