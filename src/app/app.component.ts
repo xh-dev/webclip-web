@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-  version = environment.version;
+  feVersion = environment.version;
+  feBranch = environment.branchName;
   beVersion: BEVersionEntity = null;
 
   ngOnInit(): void {

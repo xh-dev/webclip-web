@@ -4,6 +4,8 @@
 import packageJson from '../../package.json';
 export const environment = {
   version: packageJson.version,
+  branchName:'Unknown',
+  commitId:'Unknown',
   production: false,
   host: 'http://localhost:8080'
 };
