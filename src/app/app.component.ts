@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {environment} from '../environments/environment';
 import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {InputDetectService} from './input-detect.service';
 
 interface BEVersionEntity {
   branch: string;
@@ -16,7 +18,7 @@ interface BEVersionEntity {
 export class AppComponent implements OnInit {
   title = 'webclip2';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router, private detectInputting: InputDetectService) {
   }
 
   feVersion = environment.version;
@@ -29,5 +31,15 @@ export class AppComponent implements OnInit {
         this.beVersion = it;
       })
     ;
+  }
+
+  @HostListener('document:keydown.control.z', ['$event'])
+  toPost(_: KeyboardEvent) {
+    this.router.navigate(['post']);
+  }
+
+  @HostListener('document:keydown.control.x', ['$event'])
+  toGet(_: KeyboardEvent) {
+    this.router.navigate(['get']);
   }
 }

@@ -11,7 +11,7 @@
     </span>
   </li>
   <li class="nav-item">
-    <span class="badge bg-warning">
+    <span class="badge bg-warning" *ngIf="beVersion">
       BE v{{this.beVersion.version}} - {{this.beVersion.commit.slice(0, 6)}}
     </span>
   </li>

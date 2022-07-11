@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {Location} from '@angular/common';
 import {environment} from '../../environments/environment';
+import {InputDetectService} from '../input-detect.service';
+import {SubscriptionPool} from '../utils/SubscrptionPool';
 
 
 export interface RetrieveReq {
@@ -17,15 +19,18 @@ export interface RetrieveResp {
 @Component({
   selector: 'app-get-text',
   templateUrl: './get-text.component.html',
-  styleUrls: ['./get-text.component.css']
+  styleUrls: ['./get-text.component.css'],
+  providers: [InputDetectService, SubscriptionPool]
 })
-export class GetTextComponent implements OnInit {
+export class GetTextComponent implements AfterViewInit {
 
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
+    public isInputting: InputDetectService,
+    private subPool: SubscriptionPool
   ) {
     route.queryParams.subscribe(params => {
       if (params.id !== undefined) {
@@ -50,8 +55,7 @@ export class GetTextComponent implements OnInit {
   cbMsg = '';
   cbMsgId = -1;
 
-  ngOnInit(): void {
-  }
+  @ViewChild('inputBox') element: ElementRef;
 
   submit() {
     this.http.post<RetrieveResp>(environment.host + '/msg/retrieve', {code: this.id.getValue()} as RetrieveReq)
@@ -82,12 +86,15 @@ export class GetTextComponent implements OnInit {
     this.cbMsgId = setTimeout(() => this.cbMsg = '', 1000);
   }
 
-  handleEnter($event:KeyboardEvent){
-    console.log("handleEnter")
-    if(this.id.value == ""){
-      return
+  handleEnter($event: KeyboardEvent) {
+    console.log('handleEnter');
+    if (this.id.value == '') {
+      return;
     }
-    this.submit()
+    this.submit();
+  }
+
+  ngAfterViewInit(): void {
   }
 
 }
