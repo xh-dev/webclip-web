@@ -95,6 +95,7 @@ export class GetTextComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.element.nativeElement.focus()
   }
 
 }

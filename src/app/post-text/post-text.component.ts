@@ -55,5 +55,6 @@ export class PostTextComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.element.nativeElement.focus()
   }
 }
