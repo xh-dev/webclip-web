@@ -11,6 +11,8 @@ import { CpDirective } from './cp.directive';
 import { PasteDirective } from './paste.directive';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { PasswordFilterPipe } from './password-filter.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,12 @@ import { PasswordFilterPipe } from './password-filter.pipe';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
