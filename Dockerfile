@@ -10,7 +10,7 @@ RUN sed -i "s|UnknownCommitId|${commitId}|g" ./src/environments/environment.prod
 RUN npm install
 RUN npm run build-prod
 
-FROM nginx:stable-alpine
+FROM nginx:1.22.1-alpine
 #COPY docker-resource/html /usr/share/nginx/html
 COPY --from=node-build /app/dist/webclip2 /usr/share/nginx/html
 
