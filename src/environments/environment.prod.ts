@@ -4,5 +4,5 @@ export const environment = {
   branchName: 'UnknownBranchName',
   commitId: 'UnknownCommitId',
   production: true,
-  host: 'https://webclip2.mytools.express/api'
+  host: 'https://webclip2.webutils.space/api'
 };
