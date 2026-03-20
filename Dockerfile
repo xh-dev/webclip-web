@@ -1,4 +1,4 @@
-FROM node:16.14.2 as node-build
+FROM node:16.14.2 AS node-build
 COPY . /app/
 WORKDIR /app
 ARG branchName
@@ -11,8 +11,9 @@ RUN npm install
 RUN npm run build-prod
 
 FROM nginx:stable-alpine
+RUN sed -i 's/80;/8080;/g' /etc/nginx/conf.d/default.conf
 #COPY docker-resource/html /usr/share/nginx/html
 COPY --from=node-build /app/dist/webclip2 /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8080
 
