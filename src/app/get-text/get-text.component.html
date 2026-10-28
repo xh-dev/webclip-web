@@ -29,7 +29,12 @@
       <button (appPaste)="paste($event)">Paste code</button>
       <button [appCp]="id.getValue()">Copy code</button>
       <button [appCp]="secret">Copy secret</button>
-      <button [appCp]="shareUrl" (copied)="this.copied($event)">Copy URL</button>
+      <button [appCp]="shareUrl" (copied)="this.copied($event)">CURL</button>
+      <button [appCp]="pageUrl" (copied)="this.copied($event)">URL</button>
+      <div class="form-check form-switch align-self-center mb-0">
+        <input class="form-check-input" type="checkbox" role="switch" id="secureToggle" name="secure" [(ngModel)]="secure">
+        <label class="form-check-label" for="secureToggle">secure</label>
+      </div>
       <span class="text-success align-self-center" *ngIf="cbMsg && !value">{{cbMsg}}</span>
     </div>
 
