@@ -1,26 +1,23 @@
 <div class="card">
-  <div class="card-body">
+  <div class="card-body d-grid gap-3">
+    <label class="field-label" for="msgInput">Message content</label>
+    <textarea id="msgInput" #inputBox aria-label="id" rows="8"
+              placeholder="Type or paste text to share..."
+              [(ngModel)]="value"
+              (keydown.control.enter)="ctrlEnter($event, value)"
+              (focus)="isInputting.setInputting()"
+              (focusout)="isInputting.setNotInputting()"
+    ></textarea>
 
-    <div class="row">
-      <div class="col-12">
-        <label id="id">Message Content</label>
-      </div>
-      <div class="col-12">
-        <textarea #inputBox aria-label="id" rows="5" cols="40"
-                  [(ngModel)]="value"
-                  (keydown.control.enter)="ctrlEnter($event, value)"
-                  (focus)="isInputting.setInputting()"
-                  (focusout)="isInputting.setNotInputting()"
-        ></textarea>
-      </div>
-
-      <div class="col-12">
-        <label *ngIf="id" [appCp]="id">{{id}}</label>
-      </div>
-      <div class="col-12">
-        <button (click)="submit()">Create</button>
-      </div>
+    <div class="result-box" *ngIf="id">
+      <div class="small text-muted">Code</div>
+      <div class="value" [appCp]="id">{{id}}</div>
+      <ng-container *ngIf="secret">
+        <div class="small text-muted mt-2">Secret</div>
+        <div class="value" [appCp]="secret">{{secret}}</div>
+      </ng-container>
     </div>
+
+    <button class="primary" (click)="submit()">Create</button>
   </div>
 </div>
-

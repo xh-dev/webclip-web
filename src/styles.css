@@ -1,5 +1,115 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background: #f1f4f9;
+  color: #1f2937;
+  -webkit-tap-highlight-color: transparent;
+}
 
-.active {
-  background: #598bff;
+.app-container {
+  max-width: 640px;
+}
+
+.app-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #1f2937;
+  text-decoration: none;
+}
+
+.nav-pills .nav-link {
+  border-radius: 999px;
+  padding: 8px 18px;
+  color: #374151;
+}
+
+.nav-pills .nav-link.active {
+  background: #3b6cf6;
+  color: #fff;
+}
+
+.card {
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, .08);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+textarea,
+input[type='text'] {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px; /* prevents iOS zoom on focus */
+  background: #fff;
+}
+
+textarea:focus,
+input[type='text']:focus {
+  outline: none;
+  border-color: #3b6cf6;
+  box-shadow: 0 0 0 3px rgba(59, 108, 246, .2);
+}
+
+textarea:disabled {
+  background: #f9fafb;
+  color: #111827;
+}
+
+label.field-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  min-height: 44px; /* touch target */
+  background: #e5e7eb;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+button:active {
+  filter: brightness(.92);
+}
+
+button.primary {
+  background: #3b6cf6;
+  color: #fff;
+  width: 100%;
+  font-size: 1.05rem;
+}
+
+.code-box {
+  font-size: 1.6rem;
+  letter-spacing: .15em;
+  text-align: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.result-box {
+  background: #eef2ff;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+
+.result-box .value {
+  font-size: 1.8rem;
+  letter-spacing: .15em;
+  font-weight: 700;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }

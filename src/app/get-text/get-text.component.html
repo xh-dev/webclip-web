@@ -1,9 +1,10 @@
 <div class="card">
-  <div class="card-body">
-
-    <div class="row">
-      <div class="col-12">
-        <input type='text' inputmode='numeric' maxlength='6' placeholder='Code'
+  <div class="card-body d-grid gap-3">
+    <div class="row g-2">
+      <div class="col-12 col-sm-7">
+        <label class="field-label" for="codeInput">Code</label>
+        <input type='text' inputmode='numeric' maxlength='6' placeholder='123456' id="codeInput"
+               class="code-box"
                #inputBox
                [ngModel]="id | async"
                (keydown.enter)="handleEnter($event)"
@@ -11,36 +12,38 @@
                (focus)="isInputting.setInputting()"
                (focusout)="isInputting.setNotInputting()"
         />
-        <input type='text' maxlength='3' placeholder='Secret' aria-label="secret"
+      </div>
+      <div class="col-12 col-sm-5">
+        <label class="field-label" for="secretInput">Secret</label>
+        <input type='text' maxlength='3' placeholder='ABC' aria-label="secret" id="secretInput"
+               class="code-box" autocapitalize="characters" autocomplete="off"
                [(ngModel)]="secret"
                (keydown.enter)="handleEnter($event)"
                (focus)="isInputting.setInputting()"
                (focusout)="isInputting.setNotInputting()"
         />
-        <button (appPaste)="paste($event)">Paste</button>
-        <button [appCp]="id.getValue()">Copy</button>
-        <button [appCp]="secret">Copy secret</button>
       </div>
-      <div class="col-12">
-        <label id="msg">Message</label>
-      </div>
-      <div class="col-12">
-        <div class="col-9">
-          <textarea aria-label="msg" rows="5" cols="40" *ngIf="value" disabled >{{value|passwordFilter: show}}</textarea>
-        </div>
-        <div class="col-3" *ngIf="value">
-          <button [appCp]="value" (copied)="this.copied($event)">copy</button>
+    </div>
 
-          <button *ngIf="show" (click)="toggleVisible()">Show</button>
-          <button *ngIf="!show" (click)="toggleVisible()">Hide</button>
-          {{cbMsg}}
-        </div>
-      </div>
+    <div class="d-flex flex-wrap gap-2">
+      <button (appPaste)="paste($event)">Paste code</button>
+      <button [appCp]="id.getValue()">Copy code</button>
+      <button [appCp]="secret">Copy secret</button>
+      <button [appCp]="shareUrl" (copied)="this.copied($event)">Copy URL</button>
+      <span class="text-success align-self-center" *ngIf="cbMsg && !value">{{cbMsg}}</span>
+    </div>
 
-      <div class="col-12">
-        <button (click)="submit()">Retrieve</button>
+    <button class="primary" (click)="submit()">Retrieve</button>
+
+    <div *ngIf="value" class="d-grid gap-2">
+      <label class="field-label" id="msg">Message</label>
+      <textarea aria-label="msg" rows="6" disabled>{{value|passwordFilter: show}}</textarea>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <button [appCp]="value" (copied)="this.copied($event)">Copy</button>
+        <button *ngIf="show" (click)="toggleVisible()">Show</button>
+        <button *ngIf="!show" (click)="toggleVisible()">Hide</button>
+        <span class="text-success">{{cbMsg}}</span>
       </div>
     </div>
   </div>
 </div>
-

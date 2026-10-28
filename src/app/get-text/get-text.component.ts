@@ -8,6 +8,8 @@ import {InputDetectService} from '../input-detect.service';
 import {SubscriptionPool} from '../utils/SubscrptionPool';
 
 
+const SECRET_PLACEHOLDER = '???';
+
 export interface RetrieveReq {
   code: string;
   secret: string;
@@ -37,7 +39,7 @@ export class GetTextComponent implements AfterViewInit {
       if (params.id !== undefined) {
         this.id.next(params.id);
       }
-      if (params.secret !== undefined) {
+      if (params.secret !== undefined && params.secret !== SECRET_PLACEHOLDER) {
         this.secret = params.secret;
       }
     });
@@ -72,6 +74,13 @@ export class GetTextComponent implements AfterViewInit {
           alert(error.error.errorMsg);
         }
       );
+  }
+
+  get shareUrl(): string {
+    const base = new URL(environment.host + '/msg/retrieve', window.location.origin);
+    base.searchParams.set('code', this.id.getValue() || '');
+    base.searchParams.set('secret', SECRET_PLACEHOLDER);
+    return base.toString();
   }
 
   paste(str: string) {

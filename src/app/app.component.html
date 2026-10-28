@@ -1,20 +1,16 @@
-<ul class="nav">
-  <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active" routerLink="post">Create</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" routerLinkActive="active" routerLink="get">Retrieve</a>
-  </li>
-  <li class="nav-item">
-    <span class="badge bg-success">
-      FE v{{this.feVersion}} - {{this.feCommitId.slice(0,6)}}
-    </span>
-  </li>
-  <li class="nav-item">
-    <span class="badge bg-warning" *ngIf="beVersion">
-      BE v{{this.beVersion.version}} - {{this.beVersion.commit.slice(0, 6)}}
-    </span>
-  </li>
-</ul>
-<router-outlet></router-outlet>
-
+<header class="app-header">
+  <div class="container app-container d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <a class="brand" routerLink="post">📋 Webclip</a>
+    <nav class="nav nav-pills">
+      <a class="nav-link" routerLinkActive="active" routerLink="post">Create</a>
+      <a class="nav-link" routerLinkActive="active" routerLink="get">Retrieve</a>
+    </nav>
+  </div>
+</header>
+<main class="container app-container py-3">
+  <router-outlet></router-outlet>
+</main>
+<footer class="container app-container text-center pb-3">
+  <span class="badge bg-success">FE v{{this.feVersion}} - {{this.feCommitId.slice(0,6)}}</span>
+  <span class="badge bg-warning text-dark" *ngIf="beVersion">BE v{{this.beVersion.version}} - {{this.beVersion.commit.slice(0, 6)}}</span>
+</footer>
