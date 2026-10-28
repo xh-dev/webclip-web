@@ -76,10 +76,10 @@ export class GetTextComponent implements AfterViewInit {
       );
   }
 
-  get shareUrl(secure): string {
+  get shareUrl(): string {
     const base = new URL(environment.host + '/msg/retrieve', window.location.origin);
     base.searchParams.set('code', this.id.getValue() || '');
-    base.searchParams.set('secret', secure?SECRET_PLACEHOLDER:this.secret);
+    base.searchParams.set('secret', this.secret);
     return base.toString();
   }
 
