@@ -8,7 +8,7 @@ import {InputDetectService} from '../input-detect.service';
 import {SubscriptionPool} from '../utils/SubscrptionPool';
 
 
-const SECRET_PLACEHOLDER = '???';
+const SECRET_PLACEHOLDER = 'XXX';
 
 export interface RetrieveReq {
   code: string;
@@ -76,10 +76,10 @@ export class GetTextComponent implements AfterViewInit {
       );
   }
 
-  get shareUrl(): string {
+  get shareUrl(secure): string {
     const base = new URL(environment.host + '/msg/retrieve', window.location.origin);
     base.searchParams.set('code', this.id.getValue() || '');
-    base.searchParams.set('secret', SECRET_PLACEHOLDER);
+    base.searchParams.set('secret', secure?SECRET_PLACEHOLDER:this.secret);
     return base.toString();
   }
 
