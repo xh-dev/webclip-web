@@ -12,6 +12,7 @@ export interface CreateReq {
 
 export interface CreateResp {
   id: string;
+  secret: string;
 }
 
 @Component({
@@ -33,13 +34,15 @@ export class PostTextComponent implements AfterViewInit {
   value = '';
 
   id: string = null;
+  secret: string = null;
 
   submit() {
     this.http.post<CreateResp>(environment.host + '/msg/create', {msg: this.value} as CreateReq)
       .subscribe(
         data => {
           this.id = data.id;
-          this.router.navigate(['/get'], {queryParams: {id: this.id}});
+          this.secret = data.secret;
+          this.router.navigate(['/get'], {queryParams: {id: this.id, secret: this.secret}});
         },
         (error: HttpErrorResponse) => {
           alert(error.error.errorMsg);

@@ -3,7 +3,7 @@
 
     <div class="row">
       <div class="col-12">
-        <input type='number'
+        <input type='text' inputmode='numeric' maxlength='6' placeholder='Code'
                #inputBox
                [ngModel]="id | async"
                (keydown.enter)="handleEnter($event)"
@@ -11,8 +11,15 @@
                (focus)="isInputting.setInputting()"
                (focusout)="isInputting.setNotInputting()"
         />
+        <input type='text' maxlength='3' placeholder='Secret' aria-label="secret"
+               [(ngModel)]="secret"
+               (keydown.enter)="handleEnter($event)"
+               (focus)="isInputting.setInputting()"
+               (focusout)="isInputting.setNotInputting()"
+        />
         <button (appPaste)="paste($event)">Paste</button>
         <button [appCp]="id.getValue()">Copy</button>
+        <button [appCp]="secret">Copy secret</button>
       </div>
       <div class="col-12">
         <label id="msg">Message</label>

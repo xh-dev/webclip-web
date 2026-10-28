@@ -10,6 +10,7 @@ import {SubscriptionPool} from '../utils/SubscrptionPool';
 
 export interface RetrieveReq {
   code: string;
+  secret: string;
 }
 
 export interface RetrieveResp {
@@ -36,18 +37,22 @@ export class GetTextComponent implements AfterViewInit {
       if (params.id !== undefined) {
         this.id.next(params.id);
       }
+      if (params.secret !== undefined) {
+        this.secret = params.secret;
+      }
     });
 
     this.id.subscribe(text => {
       if (text === null) {
         return;
       }
-      const url = this.router.createUrlTree([], {relativeTo: this.route, queryParams: {id: text}}).toString();
+      const url = this.router.createUrlTree([], {relativeTo: this.route, queryParams: {id: text, secret: this.secret || null}, queryParamsHandling: 'merge'}).toString();
       this.location.replaceState(url);
     });
   }
 
   value = '';
+  secret = '';
   show = true;
 
   id: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -58,7 +63,7 @@ export class GetTextComponent implements AfterViewInit {
   @ViewChild('inputBox') element: ElementRef;
 
   submit() {
-    this.http.post<RetrieveResp>(environment.host + '/msg/retrieve', {code: this.id.getValue()} as RetrieveReq)
+    this.http.post<RetrieveResp>(environment.host + '/msg/retrieve', {code: this.id.getValue(), secret: this.secret.trim().toUpperCase()} as RetrieveReq)
       .subscribe(
         data => {
           this.value = data.msg;
@@ -88,7 +93,7 @@ export class GetTextComponent implements AfterViewInit {
 
   handleEnter($event: KeyboardEvent) {
     console.log('handleEnter');
-    if (this.id.value == '') {
+    if (!this.id.value || !this.secret) {
       return;
     }
     this.submit();
