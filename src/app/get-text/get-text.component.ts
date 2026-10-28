@@ -110,7 +110,7 @@ export class GetTextComponent implements AfterViewInit {
     }
     console.log(`Copied: ${$event}`);
     this.cbMsg = 'Copied';
-    this.cbMsgId = setTimeout(() => this.cbMsg = '', 1000);
+    this.cbMsgId = window.setTimeout(() => this.cbMsg = '', 1000);
   }
 
   handleEnter($event: KeyboardEvent) {
