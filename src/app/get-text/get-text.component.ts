@@ -48,7 +48,11 @@ export class GetTextComponent implements AfterViewInit {
       if (text === null) {
         return;
       }
-      const url = this.router.createUrlTree([], {relativeTo: this.route, queryParams: {id: text, secret: this.secret || null}, queryParamsHandling: 'merge'}).toString();
+      const url = this.router.createUrlTree([], {
+        relativeTo: this.route,
+        queryParams: {id: text, secret: this.secret || null},
+        queryParamsHandling: 'merge'
+      }).toString();
       this.location.replaceState(url);
     });
   }
@@ -66,7 +70,8 @@ export class GetTextComponent implements AfterViewInit {
   @ViewChild('inputBox') element: ElementRef;
 
   submit() {
-    this.http.post<RetrieveResp>(environment.host + '/msg/retrieve', {code: this.id.getValue(), secret: this.secret.trim().toUpperCase()} as RetrieveReq)
+    const req = {code: this.id.getValue(), secret: this.secret.trim().toUpperCase()} as RetrieveReq;
+    this.http.post<RetrieveResp>(environment.host + '/msg/retrieve', req)
       .subscribe(
         data => {
           this.value = data.msg;
@@ -117,7 +122,7 @@ export class GetTextComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.element.nativeElement.focus()
+    this.element.nativeElement.focus();
   }
 
 }
