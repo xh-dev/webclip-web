@@ -56,6 +56,7 @@ export class GetTextComponent implements AfterViewInit {
   value = '';
   secret = '';
   show = true;
+  secure = true;
 
   id: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
@@ -79,8 +80,15 @@ export class GetTextComponent implements AfterViewInit {
   get shareUrl(): string {
     const base = new URL(environment.host + '/msg/retrieve', window.location.origin);
     base.searchParams.set('code', this.id.getValue() || '');
-    base.searchParams.set('secret', SECRET_PLACEHOLDER);
-    return base.toString();
+    return `curl -X GET '${base.toString()}&secret=${this.secretValue}'`;
+  }
+
+  get pageUrl(): string {
+    return `${window.location.origin}/#/get?id=${this.id.getValue() || ''}&secret=${this.secretValue}`;
+  }
+
+  private get secretValue(): string {
+    return this.secure ? SECRET_PLACEHOLDER : this.secret.trim().toUpperCase();
   }
 
   paste(str: string) {
